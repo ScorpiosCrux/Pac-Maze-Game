@@ -1,0 +1,67 @@
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.shape.Rectangle; 
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.layout.VBox;
+import javafx.scene.Node;
+import java.util.Scanner;
+import javafx.scene.control.TextField;
+import java.awt.Point;
+import java.util.ArrayList;
+
+
+public class StartScreen extends Application{
+
+	private double x;
+	private double y;
+
+	public static void main(String[] args) {
+	launch(args);
+	}
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		primaryStage.setTitle("PACMAZE");
+		
+		VBox root = new VBox();
+
+		Button button = new Button("Start Game");
+
+		root.getChildren().add(button);
+
+		Scene scene = new Scene(root, 500 ,500);
+
+		
+		primaryStage.setScene(scene);
+		primaryStage.show();
+
+		button.setOnAction( new EventHandler<ActionEvent>() {	
+		@Override
+		public void handle(ActionEvent event) {
+			Stage menuStage = new Stage();
+			GUI2 menu = new GUI2();
+			menu.start(menuStage);
+			menuStage.show();
+			
+
+			
+		}
+	}
+	);	
+	}
+}
+	
+
+
+
+
+
