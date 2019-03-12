@@ -21,10 +21,6 @@ import java.util.ArrayList;
 
 
 public class StartScreen extends Application{
-
-	private double x;
-	private double y;
-
 	public static void main(String[] args) {
 	launch(args);
 	}
