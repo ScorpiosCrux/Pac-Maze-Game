@@ -40,7 +40,7 @@ public class StartScreen extends Application{
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(button);
 
-		Scene scene = new Scene(root, 400, 300);
+		Scene scene = new Scene(root, 150, 150);
 
 		
 		primaryStage.setScene(scene);
