@@ -4,9 +4,9 @@
 
 import java.util.Scanner;
 
-public class Main {
+public class PacManMazeTextLogic {
 
-	// instance variables
+	//Instance Variables
 	private Avatar avatar;
 	private Pellet pellet;
 	private Wall wall;
@@ -25,10 +25,7 @@ public class Main {
 		this.pellet = new Pellet(HEIGHT, WIDTH);
 		this.wall = new Wall(HEIGHT, WIDTH);
 
-		// we will no longer prompt the users for the dimensions of the level
-		
-		
-		// notify the user about the controls
+		// notifies the user about the controls
 		System.out.println("\nGame controls:");
 		System.out.println("w --> move up, s --> move down, a --> move left, d --> move right");
 		System.out.println("e --> exit the game");
@@ -58,12 +55,10 @@ public class Main {
 			avatar.move(input);
 			System.out.println("\nYou have moved");
 		}
-
-		
 	}
 
 	/**
-	 * checks if avatar location overlaps with a pellet location, then updates point and gets rid of that pellet
+	 * Checks if the avatar location overlaps with a pellet location, then updates point and gets rid of that pellet
 	 */
 	public void updateScore() {
 		if (pellet.overlapsWith(avatar)) {
@@ -82,17 +77,6 @@ public class Main {
 		System.out.println("Points: " + avatar.getScore());
 	}
 
-
-	// main method
-	public static void main(String[] args) {
-		Main main = new Main();
-		main.initialize();
-		while (true) {
-			main.getInputAndMove();
-			main.updateScore();
-			main.printCurrentState();
-		}
-	}
 
 
 
