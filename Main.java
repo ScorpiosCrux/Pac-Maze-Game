@@ -85,7 +85,7 @@ public class Main {
 
 	// main method
 	public static void main(String[] args) {
-		Main1 main = new Main1();
+		Main main = new Main();
 		main.initialize();
 		while (true) {
 			main.getInputAndMove();
