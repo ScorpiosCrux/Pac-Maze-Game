@@ -1,0 +1,22 @@
+READ ME FILE FOR PACMANMAZE
+
+To run the text version of the game:
+	1. Open command prompt and go to the location of the game.
+	(Copying the address bar at the top of windows explorer and
+	pasting it after cd {address} then hit enter)
+
+	2. Compile all classes in the folder with (javac *.java)
+
+	3. Run the game with (java PacManMazeTextManager) by pasting this
+	command into command prompt.
+
+
+To run the Graphical Version of the game:
+	1. Open command prompt and go to the location of the game.
+	(Copying the address bar at the top of windows explorer and
+	pasting it after cd {address} then hit enter)
+
+	2. Compile all classes in the folder with (javac *.java)
+
+	3. Run the game with (java StartScreen) by pasting this
+	command into command prompt.
