@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle; 
@@ -23,13 +24,14 @@ public class PacManMazeGUILogic extends Application{
 	 * Instance variables
 	 */
 	private Avatar avatar;
+	private Ghost ghost1;
 	private Wall wall;	
 	private Pellet pellet;
 
 	private int[][] wallList;
-	private ArrayList<Point> pelletList;
 	private Circle[][] pelletCircleList; //keeps the IDs of the pellets
-	Rectangle avatarRectangle;
+	private Rectangle avatarRectangle;
+	private Rectangle ghostRectangle;
 	
 	private Pane layout;
 
@@ -45,21 +47,30 @@ public class PacManMazeGUILogic extends Application{
 		int gameHeight = 50;
 
 		// initialize all the variables and create helper variables
-		avatar = new Avatar();
+
+		
 		wall = new Wall(gameWidth, gameHeight);
 		wallList = wall.getWalls();
 		pellet = new Pellet(this.wallList);	
-		pelletList = pellet.getLocation();
 		pelletCircleList = new Circle[gameWidth][gameHeight];
 
 		// set title  and create pane layout
 		primaryStage.setTitle("PacManMaze");
 		layout = new Pane();
+		
+		
+		
 
 
 		createAvatar();
+		createGhost();
 		
 		displayWallsAndPellets();
+		
+		Label scoreCounterlbl = new Label("Score: " + avatar.getScore());
+		scoreCounterlbl.setLayoutX(350);
+		scoreCounterlbl.setLayoutY(350);
+		layout.getChildren().add(scoreCounterlbl);
 		
 
 
@@ -77,15 +88,18 @@ public class PacManMazeGUILogic extends Application{
 			// get the key entered
 			String input = event.getText();	
 			
-				
-			if (avatar.checkAndMove(input, wallList)) {
-				avatarRectangle.setX(avatar.getX() * 10);
-				avatarRectangle.setY(avatar.getY() * 10);
-				if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
-					layout.getChildren().remove(pelletCircleList[(int) avatar.getY()][(int) avatar.getX()]);
+			if (ghost1.collisionWithPlayer(avatar) == false)	{
+				if (avatar.checkAndMove(input, wallList)) {
+					avatarRectangle.setX(avatar.getX() * 10);
+					avatarRectangle.setY(avatar.getY() * 10);
+					if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
+						avatar.addScore(10);
+						wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
+						layout.getChildren().remove(pelletCircleList[(int) avatar.getY()][(int) avatar.getX()]);
+						scoreCounterlbl.setText("Score: " + avatar.getScore());
+					}
 				}
 			}
-			
 				
 		
 		});
@@ -117,9 +131,17 @@ public class PacManMazeGUILogic extends Application{
 	
 	
 	public void createAvatar() {
+		this.avatar = new Avatar();
 		this.avatarRectangle = new Rectangle(avatar.getY() * 10, avatar.getX() * 10, 10, 10);
 		avatarRectangle.setFill(Color.RED);
 		layout.getChildren().add(avatarRectangle);
+	}
+	
+	public void createGhost() {
+		this.ghost1 = new Ghost();
+		this.ghostRectangle = new Rectangle(ghost1.getY() * 10, ghost1.getX() * 10, 10, 10);
+		ghostRectangle.setFill(Color.ORANGE);
+		layout.getChildren().add(ghostRectangle);
 	}
 	
 

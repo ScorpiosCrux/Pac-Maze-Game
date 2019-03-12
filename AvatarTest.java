@@ -34,12 +34,12 @@ public class AvatarTest{
 		a.addScore(-1);
 		assertEquals("Tried to add negative score, score should remain unchanged.", 0, a.getScore(), 0.000001);
 	}
-	
+	/**
 	// test movement of the avatar
 	@Test
 	public void test_moveUp(){
 		Avatar a = new Avatar();
-		a.move("w");
+		a("w");
 		assertEquals("Y coordinate should decrease by 1 unit", 0, a.getY(), 0.000001);
 	}
 	@Test
@@ -58,5 +58,5 @@ public class AvatarTest{
 		a.move("d");
 		assertEquals("X coordinate should increase by 1 unit", 2, a.getX(), 0.000001);
 	}
-		
+		**/
 }

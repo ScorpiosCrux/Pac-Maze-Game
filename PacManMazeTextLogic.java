@@ -10,6 +10,7 @@ public class PacManMazeTextLogic {
 	private Avatar avatar;
 	private Pellet pellet;
 	private Wall wall;
+	private int[][] gameBoard;
 
 	private static final int HEIGHT = 50;
 	private static final int WIDTH = 50;
@@ -22,8 +23,9 @@ public class PacManMazeTextLogic {
 	 */
 	public void initialize() {
 		this.avatar = new Avatar();
-		this.pellet = new Pellet(HEIGHT, WIDTH);
 		this.wall = new Wall(HEIGHT, WIDTH);
+		this.pellet = new Pellet(wall.getWalls());
+		this.gameBoard = pellet.generatePellet(gameBoard);
 
 		// notifies the user about the controls
 		System.out.println("\nGame controls:");
@@ -46,15 +48,10 @@ public class PacManMazeTextLogic {
 		
 		
 		Avatar testAvatar = new Avatar(avatar.getLocation());
-		testAvatar.move(input);
-
-		if (wall.overlapsWith(testAvatar)) {
-			System.out.println("\nYou have hit a wall");
-		} 
-		else {
-			avatar.move(input);
-			System.out.println("\nYou have moved");
-		}
+		testAvatar.checkAndMove(input, gameBoard);
+		
+		
+		
 	}
 
 	/**
