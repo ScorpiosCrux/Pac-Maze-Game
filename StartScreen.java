@@ -40,7 +40,7 @@ public class StartScreen extends Application{
 		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(button);
 
-		Scene scene = new Scene(root, 100 ,100);
+		Scene scene = new Scene(root, 400, 300);
 
 		
 		primaryStage.setScene(scene);
@@ -50,7 +50,7 @@ public class StartScreen extends Application{
 		@Override
 		public void handle(ActionEvent event) {
 			Stage menuStage = new Stage();
-			GUI2 menu = new GUI2();
+			PacManMazeGUILogic menu = new PacManMazeGUILogic();
 			menu.start(menuStage);
 			menuStage.show();
 			primaryStage.close();

@@ -13,7 +13,6 @@ public class Wall {
 	// constructor
 	public Wall(int height, int width) {
 		this.generateWall(height, width);
-
 	}
 
 
@@ -24,11 +23,11 @@ public class Wall {
 	 */
 	public boolean overlapsWith(Avatar avatar) {
 		for (Point eachPoint : location) {
-                        if (eachPoint.equals(avatar.getLocation())) {
-                                return true;
-                        }
-                }
-                return false;
+			if (eachPoint.equals(avatar.getLocation())) {
+				return true;
+            }
+        }
+        return false;
 	}
 
 	/**
@@ -47,7 +46,11 @@ public class Wall {
 		}
 	}
 
-
+	
+	/**
+	 * Getter for the point's location
+	 * @return Arraylist of type Point
+	 */
 	public ArrayList<Point> getLocation() {
 		return this.location;
 	}

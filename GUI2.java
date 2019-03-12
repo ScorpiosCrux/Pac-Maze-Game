@@ -17,44 +17,26 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 
-public class GUI2 extends Application{
+public class PacManMazeGUILogic extends Application{
 
 
 	
-	// variables
-	Avatar avatar;
-	Wall wall;	
-	Pellet pellet;
+	/***
+	 * instance variables
+	 */
+	private Avatar avatar;
+	private Wall wall;	
+	private Pellet pellet;
 
-	ArrayList<Point> wallList;
-	ArrayList<Point> pelletList;
-	ArrayList<Circle> pelletCircleList;
-	
-	private int x;
-	private int y;	
+	private ArrayList<Point> wallList;
+	private ArrayList<Point> pelletList;
+	private ArrayList<Circle> pelletCircleList;
 
-	
-
-	// main method
-	public static void main(String[] args) {
-	launch(args);
-	}
-
-
-	
-	// start method
+	/**
+	 * Start method that creates the GUI
+	 */
 	@Override
 	public void start(Stage primaryStage) {
-
-		// System.out.print("What would you like your width to be");
-		// System.out.println("Output will be width * 5 - 2");
-		// Scanner in = new Scanner(System.in);
-		// int x = in.nextInt();
-		// System.out.print("What would you like your height to be");
-		// System.out.println("Output will be height * 5 - 2");
-		// int y = in.nextInt();
-	
-
 
 		// initialize all the variables and create helper variables
 		avatar = new Avatar();	
