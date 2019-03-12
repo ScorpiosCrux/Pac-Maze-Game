@@ -1,4 +1,6 @@
 READ ME FILE FOR PACMANMAZE
+Game files can be found at https://github.com/ScorpiosCrux/TUT07---G3.git
+(Access must be granted)
 
 To run the text version of the game:
 	1. Open command prompt and go to the location of the game.
