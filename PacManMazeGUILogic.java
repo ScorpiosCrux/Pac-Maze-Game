@@ -23,6 +23,10 @@ public class PacManMazeGUILogic extends Application{
 	/***
 	 * Instance variables
 	 */
+	
+	
+	
+	
 	private Avatar avatar;
 	private Ghost ghost1;
 	private Wall wall;	
@@ -40,9 +44,6 @@ public class PacManMazeGUILogic extends Application{
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		int playerXLocation = 1;
-		int playerYLocation = 1;
-		
 		int gameWidth = 30;
 		int gameHeight = 50;
 
@@ -86,7 +87,11 @@ public class PacManMazeGUILogic extends Application{
 		// handle keyboard input
 		scene.setOnKeyPressed(event -> {
 			// get the key entered
-			String input = event.getText();	
+			String input = event.getText();
+			
+			if (event.getCode() == KeyCode.ESCAPE) {
+				System.exit(0);
+			}
 			
 			if (ghost1.collisionWithPlayer(avatar) == false)	{
 				if (avatar.checkAndMove(input, wallList)) {
