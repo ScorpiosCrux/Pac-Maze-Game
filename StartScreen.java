@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import java.util.Scanner;
 import javafx.scene.control.TextField;
 import java.awt.Point;
+import javafx.geometry.Pos;
 import java.util.ArrayList;
 
 
@@ -36,9 +37,10 @@ public class StartScreen extends Application{
 
 		Button button = new Button("Start Game");
 
+		root.setAlignment(Pos.CENTER);
 		root.getChildren().add(button);
 
-		Scene scene = new Scene(root, 500 ,500);
+		Scene scene = new Scene(root, 100 ,100);
 
 		
 		primaryStage.setScene(scene);
@@ -51,6 +53,7 @@ public class StartScreen extends Application{
 			GUI2 menu = new GUI2();
 			menu.start(menuStage);
 			menuStage.show();
+			primaryStage.close();
 			
 
 			
