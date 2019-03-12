@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.Node;
 import java.util.Scanner;
-
+import javafx.geometry.Pos;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -40,25 +40,27 @@ public class GUI2 extends Application{
 	launch(args);
 	}
 
+
 	
 	// start method
 	@Override
 	public void start(Stage primaryStage) {
 
-		System.out.print("What would you like your width to be");
-		System.out.println("Output will be width * 5 - 2");
-		Scanner in = new Scanner(System.in);
-		int x = in.nextInt();
-		System.out.print("What would you like your height to be");
-		System.out.println("Output will be height * 5 - 2");
-		int y = in.nextInt();
+		// System.out.print("What would you like your width to be");
+		// System.out.println("Output will be width * 5 - 2");
+		// Scanner in = new Scanner(System.in);
+		// int x = in.nextInt();
+		// System.out.print("What would you like your height to be");
+		// System.out.println("Output will be height * 5 - 2");
+		// int y = in.nextInt();
+	
 
 
 		// initialize all the variables and create helper variables
 		avatar = new Avatar();	
-		wall = new Wall(x*5, y*5);
+		wall = new Wall(50, 50);
 		wallList = wall.getLocation();
-		pellet = new Pellet(x*5, y*5);	
+		pellet = new Pellet(50, 50);	
 		pelletList = pellet.getLocation();
 		pelletCircleList = new ArrayList<Circle>();
 
@@ -93,9 +95,9 @@ public class GUI2 extends Application{
 
 
 		// create new scene, add the pane to scene, add the scene to stage
-		Scene scene = new Scene(layout, x * 50, y * 50);
+		Scene scene = new Scene(layout, 500, 500);
 		primaryStage.setScene(scene);
-		
+		primaryStage.centerOnScreen();		
 
 		// show the stage
 		primaryStage.show();
