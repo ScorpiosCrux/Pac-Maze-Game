@@ -4,9 +4,6 @@
  */
 
 import java.util.ArrayList;
-
-import javafx.scene.shape.Rectangle;
-
 import java.awt.Point;
 
 public class Pellet {
@@ -18,8 +15,8 @@ public class Pellet {
 	 * @param height of the map
 	 * @param width of the map
 	 */
-	public Pellet(int[][] gameBoard) {
-		this.generatePellet(gameBoard);			
+	public Pellet(int height, int width) {
+		this.generatePellet(height, width);			
 	}
 
 	/**
@@ -42,14 +39,16 @@ public class Pellet {
 	 * @param height the height of the level
 	 * @param width the width of the level
 	 */
-	public int[][] generatePellet(int[][] gameBoard) {
-		for (int row = 0; row < gameBoard.length; row++) {
-			for (int column = 0; column < gameBoard[0].length; column++ ) {
-				if (gameBoard[row][column] != 1)
-					gameBoard[row][column] = 2;
+	public void generatePellet(int height, int width) {
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++ ) {
+				if (((i != 0) && (i != width-1)) && ((j != 0) && (j != height-1))) {
+					location.add(new Point(i, j));
+				}
 			}
 		}
-		return gameBoard;
+		// removes the pellet from avatar's starting point at (1, 1)
+		location.remove(new Point(1, 1));
 	}
 
 

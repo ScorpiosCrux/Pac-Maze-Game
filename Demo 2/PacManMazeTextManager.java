@@ -3,7 +3,7 @@
 public class PacManMazeTextManager {
 	/**
 	 * Main method
-	 * @param args
+	 * @param argss
 	 */
 	public static void main(String[] args) {
 		PacManMazeTextLogic main = new PacManMazeTextLogic();

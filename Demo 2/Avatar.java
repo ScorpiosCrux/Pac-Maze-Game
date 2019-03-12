@@ -30,31 +30,36 @@ public class Avatar {
 	}
 
 	
-	public boolean checkAndMove(String direction, int[][] wallList) {
-		boolean nextMoveValid = false;
+	/**
+	 * This method sees which key the user pressed, and will change the avatar location accordingly. 
+	 * If an invalid key is pressed, the user will be notified.
+	 * @param direction the key (in string form) that the user entered
+	 */
+	public void move(String direction) {
 		// move up
-		if (direction.equalsIgnoreCase("w") && (wallList[location.y - 1][location.x] != 1) ) {
-			nextMoveValid = true;
+		if (direction.equalsIgnoreCase("w")) {
 			location.translate(0, -1);
 		}
 		// move down
-		
-		else if (direction.equalsIgnoreCase("s")  && (wallList[location.y + 1][location.x] != 1)) {
-			nextMoveValid = true;
+		else if (direction.equalsIgnoreCase("s")) {
 			location.translate(0, 1);
 		}
 		// move left
-		else if (direction.equalsIgnoreCase("a") && (wallList[location.y][location.x - 1] != 1)) {
-			nextMoveValid = true;
+		else if (direction.equalsIgnoreCase("a")) {
 			location.translate(-1, 0);
 		}
 		// move right
-		else if (direction.equalsIgnoreCase("d") && (wallList[location.y][location.x + 1] != 1)) {
-			nextMoveValid = true;
+		else if (direction.equalsIgnoreCase("d")) {
 			location.translate(1, 0);
 		}
-		
-		return nextMoveValid;
+		// exit the program
+		else if (direction.equalsIgnoreCase("e")) {
+			System.exit(0);
+		}
+		// user entered invalid input
+		else {
+			System.out.println("invalid input");
+		}
 	}
 
 	/**

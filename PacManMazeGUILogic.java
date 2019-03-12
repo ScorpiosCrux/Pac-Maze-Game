@@ -26,55 +26,46 @@ public class PacManMazeGUILogic extends Application{
 	private Wall wall;	
 	private Pellet pellet;
 
-	private ArrayList<Point> wallList;
+	private int[][] wallList;
 	private ArrayList<Point> pelletList;
-	private ArrayList<Circle> pelletCircleList;
+	private Circle[][] pelletCircleList; //keeps the IDs of the pellets
+	Rectangle avatarRectangle;
+	
+	private Pane layout;
 
 	/**
 	 * Start method that creates the GUI
 	 */
 	@Override
 	public void start(Stage primaryStage) {
+		int playerXLocation = 1;
+		int playerYLocation = 1;
+		
+		int gameWidth = 30;
+		int gameHeight = 50;
 
 		// initialize all the variables and create helper variables
-		avatar = new Avatar();	
-		wall = new Wall(50, 50);
-		wallList = wall.getLocation();
-		pellet = new Pellet(50, 50);	
+		avatar = new Avatar();
+		wall = new Wall(gameWidth, gameHeight);
+		wallList = wall.getWalls();
+		pellet = new Pellet(this.wallList);	
 		pelletList = pellet.getLocation();
-		pelletCircleList = new ArrayList<Circle>();
+		pelletCircleList = new Circle[gameWidth][gameHeight];
 
 		// set title  and create pane layout
-		primaryStage.setTitle("title of window");
-		Pane layout = new Pane();
+		primaryStage.setTitle("PacManMaze");
+		layout = new Pane();
 
-		// create avatar rectangle, add that to pane
-		Rectangle avatarRectangle = new Rectangle(avatar.getX() * 10, avatar.getY() * 10, 10, 10);
-		avatarRectangle.setFill(Color.RED);
-		layout.getChildren().add(avatarRectangle);
 
+		createAvatar();
 		
-		// turn wall points into rectangle and add them to pane
-		for (Point eachPoint : wallList) {
-			layout.getChildren().add(new Rectangle( (eachPoint.getX() * 10), (eachPoint.getY() * 10), 10, 10));
-        	}
+		displayWallsAndPellets();
 		
-		
-		// turn pellet points into circles and add them to pane
-		for (Point eachPoint : pelletList) {
-			Circle c = new Circle(((eachPoint.getX() * 10) + 5), ((eachPoint.getY() * 10) +  5), 1, Color.GREEN);
-			
-			// add pellet circle to pelletCircleList
-			pelletCircleList.add(c);
-			
-			// add circle to pane
-			layout.getChildren().add(c);
-		}
 
 
 
 		//Create new scene, add the pane to scene, add the scene to stage
-		Scene scene = new Scene(layout, 500, 500);
+		Scene scene = new Scene(layout, 800, 800);
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();		
 
@@ -84,43 +75,53 @@ public class PacManMazeGUILogic extends Application{
 		// handle keyboard input
 		scene.setOnKeyPressed(event -> {
 			// get the key entered
-			String input = event.getText();			
+			String input = event.getText();	
 			
-			//Creates fake avatar and moves this avatar.
-			Avatar testAvatar = new Avatar(avatar.getLocation());
-			testAvatar.move(input);
-
-			//If no wall overlaps with test avatar, move the real avatar
-			if (!wall.overlapsWith(testAvatar)) {
-				avatar.move(input);	
+				
+			if (avatar.checkAndMove(input, wallList)) {
 				avatarRectangle.setX(avatar.getX() * 10);
 				avatarRectangle.setY(avatar.getY() * 10);
-			} 		
-		
-		
-			//Checks if the avatar location overlaps with a pellet location, then removes the pellet	
-			if (pellet.overlapsWith(avatar)) {
-				pellet.removePellet(avatar.getLocation());
-				pelletList = pellet.getLocation();
-				
-				for (Circle eachPelletCircle : pelletCircleList) {
-				
-					if ((((eachPelletCircle.getCenterX() - 5) / 10) == avatar.getX()) && (((eachPelletCircle.getCenterY() - 5) / 10) == avatar.getY())) {
-						System.out.println((eachPelletCircle.getCenterX() - 5) + "  " + (eachPelletCircle.getCenterY() - 5));
-						layout.getChildren().remove(eachPelletCircle);
-
-					} 
+				if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
+					layout.getChildren().remove(pelletCircleList[(int) avatar.getY()][(int) avatar.getX()]);
 				}
 			}
+			
+				
+		
 		});
 	
+		
+		
 	}
 	
 
-
-
-
-
+	public void displayWallsAndPellets() {
+		// turn wall points into rectangle and add them to pane
+		int scale = 10;
+		int width_rectangle = 10;
+		int height_rectangle = 10;
+		Circle currentCircle = null;
+		
+		for (int row = 0; row < wallList.length; row++) {
+			for (int column = 0; column < wallList[0].length; column++ ) {
+				if (wallList[row][column] == 1)
+					layout.getChildren().add(new Rectangle(column*scale, row*scale, width_rectangle, height_rectangle));
+				else if (wallList[row][column] == 2) {
+					currentCircle = new Circle(column*scale + 5, row*scale +  5, 1, Color.GREEN);
+					layout.getChildren().add(currentCircle);
+					pelletCircleList[row][column] = currentCircle;
+				}
+			}
+		}
+	}
+	
+	
+	public void createAvatar() {
+		this.avatarRectangle = new Rectangle(avatar.getY() * 10, avatar.getX() * 10, 10, 10);
+		avatarRectangle.setFill(Color.RED);
+		layout.getChildren().add(avatarRectangle);
+	}
+	
 
 
 

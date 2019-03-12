@@ -8,27 +8,15 @@ import java.util.ArrayList;
 public class Wall {
 
 	// instance variables
-	private ArrayList<Point> location = new ArrayList<Point>();
+	private int[][] walls;
 
 	// constructor
-	public Wall(int height, int width) {
-		this.generateWall(height, width);
+	public Wall(int rows, int columns) {
+		this.walls = new int[rows][columns];
+		this.generateBorder(rows, columns);
+		this.generateTestLevel();
 	}
 
-
-	/**
-	 * Checks if an Avatar object location is the same as one of the points in the location ArrayList
-	 * @param avatar the object of type Avatar whose location is checked
-	 * @return a boolean that indicates whether there is overlapping of locations or not
-	 */
-	public boolean overlapsWith(Avatar avatar) {
-		for (Point eachPoint : location) {
-			if (eachPoint.equals(avatar.getLocation())) {
-				return true;
-            }
-        }
-        return false;
-	}
 
 	/**
 	 * Adds all the outer coordinates of the level into the instance variable location
@@ -36,31 +24,30 @@ public class Wall {
 	 * @param height the height of the level
 	 * @param width the width of the level
 	 */
-	public void generateWall(int height, int width) {
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++ ) {
-				if (((i == 0) || (i == width-1)) || ((j == 0) || (j == height-1))) {
-					location.add(new Point(i, j));
+	public void generateBorder(int rows, int columns) {
+		walls[0][3] = 4;
+		System.out.println(walls[0].toString());
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++ ) {
+				if (((row == 0) || (row == rows-1)) || ((column == 0) || (column == columns-1))) {
+					walls[row][column] = 1;
 				}
 			}
 		}
 	}
 
+	public void generateTestLevel() {
+		this.walls[0][1] = 0;
+	}
+	
 	
 	/**
 	 * Getter for the point's location
 	 * @return Arraylist of type Point
 	 */
-	public ArrayList<Point> getLocation() {
-		return this.location;
+	public int[][] getWalls() {
+		return this.walls;
 	}
-
-
-
-
-
-
-
 
 
 
