@@ -7,18 +7,17 @@ import java.util.ArrayList;
 import java.awt.Point;
 
 public class Pellet {
-
-
 	// instance variables
 	private ArrayList<Point> location = new ArrayList<Point>();
 
-	
-	// constructors
+	/**
+	 * Generates the pellets
+	 * @param height of the map
+	 * @param width of the map
+	 */
 	public Pellet(int height, int width) {
 		this.generatePellet(height, width);			
 	}
-
-	
 
 	/**
 	 * Checks if one of the Pellet locations overlaps with Avatar location
@@ -63,6 +62,10 @@ public class Pellet {
 	}
 
 
+	/**
+	 * Getter for the ArrayList of points
+	 * @return this.location which is an ArrayList of type Point
+	 */
 
 	public ArrayList<Point> getLocation() {
 		return this.location;

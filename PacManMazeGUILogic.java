@@ -19,10 +19,8 @@ import java.util.ArrayList;
 
 public class PacManMazeGUILogic extends Application{
 
-
-	
 	/***
-	 * instance variables
+	 * Instance variables
 	 */
 	private Avatar avatar;
 	private Wall wall;	
@@ -45,7 +43,6 @@ public class PacManMazeGUILogic extends Application{
 		pellet = new Pellet(50, 50);	
 		pelletList = pellet.getLocation();
 		pelletCircleList = new ArrayList<Circle>();
-
 
 		// set title  and create pane layout
 		primaryStage.setTitle("title of window");
@@ -76,7 +73,7 @@ public class PacManMazeGUILogic extends Application{
 
 
 
-		// create new scene, add the pane to scene, add the scene to stage
+		//Create new scene, add the pane to scene, add the scene to stage
 		Scene scene = new Scene(layout, 500, 500);
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();		
@@ -86,15 +83,14 @@ public class PacManMazeGUILogic extends Application{
 		
 		// handle keyboard input
 		scene.setOnKeyPressed(event -> {
-			
 			// get the key entered
 			String input = event.getText();			
 			
-			// create test avatar, move that avatar
+			//Creates fake avatar and moves this avatar.
 			Avatar testAvatar = new Avatar(avatar.getLocation());
 			testAvatar.move(input);
 
-			// if no wall overlaps with test avatar, move the real avaar
+			//If no wall overlaps with test avatar, move the real avatar
 			if (!wall.overlapsWith(testAvatar)) {
 				avatar.move(input);	
 				avatarRectangle.setX(avatar.getX() * 10);
@@ -102,7 +98,7 @@ public class PacManMazeGUILogic extends Application{
 			} 		
 		
 		
-			// check if avatar location overlaps with a pellet location, the remove pellet	
+			//Checks if the avatar location overlaps with a pellet location, then removes the pellet	
 			if (pellet.overlapsWith(avatar)) {
 				pellet.removePellet(avatar.getLocation());
 				pelletList = pellet.getLocation();
