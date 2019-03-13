@@ -53,7 +53,7 @@ public class PacManMazeGUILogic extends Application{
 		wall = new Wall(gameWidth, gameHeight);
 		wallList = wall.getWalls();
 		pellet = new Pellet(this.wallList);	
-		pelletCircleList = new Circle[gameWidth][gameHeight];
+		pelletCircleList = new Circle[wallList.length][wallList[0].length];
 
 		// set title  and create pane layout
 		primaryStage.setTitle("PacManMaze");
