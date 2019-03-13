@@ -24,7 +24,7 @@ public class PacManMazeGUILogic extends Application{
 	 * Instance variables
 	 */
 	
-	
+	private final int rectangleScale = 10;
 	
 	
 	private Avatar avatar;
@@ -116,9 +116,9 @@ public class PacManMazeGUILogic extends Application{
 
 	public void displayWallsAndPellets() {
 		// turn wall points into rectangle and add them to pane
-		int scale = 10;
-		int width_rectangle = 10;
-		int height_rectangle = 10;
+		int scale = rectangleScale;
+		int width_rectangle = rectangleScale;
+		int height_rectangle = rectangleScale;
 		Circle currentCircle = null;
 		
 		for (int row = 0; row < wallList.length; row++) {
@@ -126,7 +126,7 @@ public class PacManMazeGUILogic extends Application{
 				if (wallList[row][column] == 1)
 					layout.getChildren().add(new Rectangle(column*scale, row*scale, width_rectangle, height_rectangle));
 				else if (wallList[row][column] == 2) {
-					currentCircle = new Circle(column*scale + 5, row*scale +  5, 1, Color.GREEN);
+					currentCircle = new Circle(column*scale + rectangleScale / 2, row*scale +  rectangleScale/ 2, rectangleScale/10, Color.GREEN);
 					layout.getChildren().add(currentCircle);
 					pelletCircleList[row][column] = currentCircle;
 				}
@@ -137,14 +137,14 @@ public class PacManMazeGUILogic extends Application{
 	
 	public void createAvatar() {
 		this.avatar = new Avatar();
-		this.avatarRectangle = new Rectangle(avatar.getY() * 10, avatar.getX() * 10, 10, 10);
+		this.avatarRectangle = new Rectangle(avatar.getY() * rectangleScale, avatar.getX() * rectangleScale, rectangleScale, rectangleScale);
 		avatarRectangle.setFill(Color.RED);
 		layout.getChildren().add(avatarRectangle);
 	}
 	
 	public void createGhost() {
 		this.ghost1 = new Ghost();
-		this.ghostRectangle = new Rectangle(ghost1.getY() * 10, ghost1.getX() * 10, 10, 10);
+		this.ghostRectangle = new Rectangle(ghost1.getY() * rectangleScale, ghost1.getX() * rectangleScale, rectangleScale, rectangleScale);
 		ghostRectangle.setFill(Color.ORANGE);
 		layout.getChildren().add(ghostRectangle);
 	}
