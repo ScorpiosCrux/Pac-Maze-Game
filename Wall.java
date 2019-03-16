@@ -42,6 +42,8 @@ public class Wall {
 							 {1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1},
 							 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
 
+
+
 	// constructor
 	public Wall(int rows, int columns) {
 		this.walls = new int[rows][columns];

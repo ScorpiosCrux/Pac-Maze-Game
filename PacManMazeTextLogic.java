@@ -24,6 +24,7 @@ public class PacManMazeTextLogic {
 	public void initialize() {
 		this.avatar = new Avatar();
 		this.wall = new Wall(HEIGHT, WIDTH);
+		this.gameBoard = wall.getWalls();
 		this.pellet = new Pellet(wall.getWalls());
 		this.gameBoard = pellet.generatePellet(gameBoard);
 

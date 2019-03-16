@@ -24,7 +24,7 @@ public class PacManMazeGUILogic extends Application{
 	 * Instance variables
 	 */
 	
-	private final int rectangleScale = 10;
+	private final int rectangleScale = 20;
 	
 	
 	private Avatar avatar;
@@ -44,8 +44,8 @@ public class PacManMazeGUILogic extends Application{
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		int gameWidth = 30;
-		int gameHeight = 50;
+		int gameWidth = 32;
+		int gameHeight = 32;
 
 		// initialize all the variables and create helper variables
 
@@ -93,20 +93,27 @@ public class PacManMazeGUILogic extends Application{
 				System.exit(0);
 			}
 			
-			if (ghost1.collisionWithPlayer(avatar) == false)	{
-				if (avatar.checkAndMove(input, wallList)) {
-					avatarRectangle.setX(avatar.getX() * rectangleScale);
-					avatarRectangle.setY(avatar.getY() * rectangleScale);
-					if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
-						avatar.addScore(10);
-						wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
-						layout.getChildren().remove(pelletCircleList[(int) avatar.getY()][(int) avatar.getX()]);
-						scoreCounterlbl.setText("Score: " + avatar.getScore());
-					}
+			
+			if (avatar.checkAndMove(input, wallList)) {
+				avatarRectangle.setX(avatar.getX() * rectangleScale);
+				avatarRectangle.setY(avatar.getY() * rectangleScale);
+				if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
+					avatar.addScore(10);
+					wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
+					layout.getChildren().remove(pelletCircleList[(int) avatar.getY()][(int) avatar.getX()]);
+					scoreCounterlbl.setText("Score: " + avatar.getScore());
 				}
+				// check if player and ghost collide
+				ghost1.overlapsWith(avatar);
+
 			}
-				
-		
+			// make the ghost move
+			ghost1.move(ghost1.pickMove(this.wallList));
+			ghostRectangle.setX(ghost1.getX() * rectangleScale);
+			ghostRectangle.setY(ghost1.getY() * rectangleScale);
+			// check again if player and ghost collides
+			ghost1.overlapsWith(avatar);
+
 		});
 	
 		
@@ -117,16 +124,14 @@ public class PacManMazeGUILogic extends Application{
 	public void displayWallsAndPellets() {
 		// turn wall points into rectangle and add them to pane
 		int scale = rectangleScale;
-		int width_rectangle = rectangleScale;
-		int height_rectangle = rectangleScale;
 		Circle currentCircle = null;
 		
 		for (int row = 0; row < wallList.length; row++) {
 			for (int column = 0; column < wallList[0].length; column++ ) {
 				if (wallList[row][column] == 1)
-					layout.getChildren().add(new Rectangle(column*scale, row*scale, width_rectangle, height_rectangle));
+					layout.getChildren().add(new Rectangle(column*scale, row*scale, scale, scale));
 				else if (wallList[row][column] == 2) {
-					currentCircle = new Circle(column*scale + rectangleScale / 2, row*scale +  rectangleScale/ 2, rectangleScale/10, Color.GREEN);
+					currentCircle = new Circle(column*scale + scale / 2, row*scale +  scale/ 2, scale/10, Color.GREEN);
 					layout.getChildren().add(currentCircle);
 					pelletCircleList[row][column] = currentCircle;
 				}
