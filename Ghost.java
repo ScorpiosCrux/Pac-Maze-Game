@@ -11,7 +11,7 @@ public class Ghost {
 
 	// constructors
 	public Ghost() {
-		this.location = new Point(10, 10);
+		this.location = new Point(13, 14);
 		previousMove = " ";
 	
 	}
