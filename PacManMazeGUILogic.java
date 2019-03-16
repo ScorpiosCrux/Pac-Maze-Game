@@ -95,8 +95,8 @@ public class PacManMazeGUILogic extends Application{
 			
 			if (ghost1.collisionWithPlayer(avatar) == false)	{
 				if (avatar.checkAndMove(input, wallList)) {
-					avatarRectangle.setX(avatar.getX() * 10);
-					avatarRectangle.setY(avatar.getY() * 10);
+					avatarRectangle.setX(avatar.getX() * rectangleScale);
+					avatarRectangle.setY(avatar.getY() * rectangleScale);
 					if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
 						avatar.addScore(10);
 						wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
