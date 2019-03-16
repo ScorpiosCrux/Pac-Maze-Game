@@ -29,13 +29,15 @@ public class PacManMazeGUILogic extends Application{
 	
 	private Avatar avatar;
 	private Ghost ghost1;
-	private Wall wall;	
+	private Wall wall;
+	private GameWin gameWin;
 	private Pellet pellet;
 
 	private int[][] wallList;
 	private Circle[][] pelletCircleList; //keeps the IDs of the pellets
 	private Rectangle avatarRectangle;
 	private Rectangle ghostRectangle;
+	private Rectangle gameWinRectangle;
 	
 	private Pane layout;
 
@@ -65,6 +67,7 @@ public class PacManMazeGUILogic extends Application{
 
 		createAvatar();
 		createGhost();
+		createGameWin();
 		
 		displayWallsAndPellets();
 		
@@ -106,7 +109,8 @@ public class PacManMazeGUILogic extends Application{
 				}
 				// check if player and ghost collide
 				ghost1.overlapsWith(avatar);
-
+				// check if player iverlaps with end point 
+				gameWin.isAtEndPoint(avatar);
 			}
 			// make the ghost move
 			ghost1.move(ghost1.pickMove(this.wallList));
@@ -114,6 +118,11 @@ public class PacManMazeGUILogic extends Application{
 			ghostRectangle.setY(ghost1.getY() * rectangleScale);
 			// check again if player and ghost collides
 			ghost1.overlapsWith(avatar);
+			// checks again to see if player reaches end point
+			gameWinRectangle.setX(gameWin.getX() * rectangleScale);
+			gameWinRectangle.setY(gameWin.getY() * rectangleScale);
+			gameWin.isAtEndPoint(avatar);
+
 
 		});
 	
@@ -154,6 +163,14 @@ public class PacManMazeGUILogic extends Application{
 		ghostRectangle.setFill(Color.ORANGE);
 		layout.getChildren().add(ghostRectangle);
 	}
+	
+	public void createGameWin() {
+		this.gameWin = new GameWin();
+		this.gameWinRectangle = new Rectangle(gameWin.getY() * rectangleScale, gameWin.getX() * rectangleScale, rectangleScale, rectangleScale);	
+		gameWinRectangle.setFill(Color.WHITE);
+		layout.getChildren().add(gameWinRectangle);
+	}
+
 	
 
 
