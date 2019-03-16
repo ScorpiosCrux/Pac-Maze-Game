@@ -69,8 +69,9 @@ public class PacManMazeGUILogic extends Application{
 		displayWallsAndPellets();
 		
 		Label scoreCounterlbl = new Label("Score: " + avatar.getScore());
-		scoreCounterlbl.setLayoutX(350);
-		scoreCounterlbl.setLayoutY(350);
+		scoreCounterlbl.setTextFill(Color.WHITE);
+		scoreCounterlbl.setLayoutX(avatar.getX());
+		scoreCounterlbl.setLayoutY(avatar.getY());
 		layout.getChildren().add(scoreCounterlbl);
 		
 
