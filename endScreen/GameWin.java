@@ -1,6 +1,6 @@
 import java.awt.Point;
 
-public class GameWin extends Avatar {
+public class GameWin {
 
 	private Point winLocation;
 
