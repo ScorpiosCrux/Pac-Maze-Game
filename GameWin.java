@@ -1,12 +1,12 @@
 import java.awt.Point;
 
-public class GameWin extends Avatar {
+public class GameWin {
 
 	private Point winLocation;
 
 
 	public GameWin() {
-		winLocation = new Point(31, 2);
+		winLocation = new Point(29, 2);
 	}
 
 	public GameWin(Point endPoint) {

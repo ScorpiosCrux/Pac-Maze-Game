@@ -30,8 +30,8 @@ public class PacManMazeGUILogic extends Application{
 	private Avatar avatar;
 	private Ghost ghost1;
 	private Wall wall;
-	private GameWin gameWin;
 	private Pellet pellet;
+	private GameWin gameWin;
 
 	private int[][] wallList;
 	private Circle[][] pelletCircleList; //keeps the IDs of the pellets
@@ -51,7 +51,7 @@ public class PacManMazeGUILogic extends Application{
 
 		// initialize all the variables and create helper variables
 
-		
+
 		wall = new Wall(gameWidth, gameHeight);
 		wallList = wall.getWalls();
 		pellet = new Pellet(this.wallList);	
@@ -61,23 +61,18 @@ public class PacManMazeGUILogic extends Application{
 		primaryStage.setTitle("PacManMaze");
 		layout = new Pane();
 		
-		
-		
-
-
 		createAvatar();
-		createGhost();
+		createGhost();		
+		displayWallsAndPellets();		
 		createGameWin();
+				
 		
-		displayWallsAndPellets();
 		
 		Label scoreCounterlbl = new Label("Score: " + avatar.getScore());
 		scoreCounterlbl.setTextFill(Color.WHITE);
 		scoreCounterlbl.setLayoutX(avatar.getX());
 		scoreCounterlbl.setLayoutY(avatar.getY());
 		layout.getChildren().add(scoreCounterlbl);
-		
-
 
 
 		//Create new scene, add the pane to scene, add the scene to stage
@@ -97,7 +92,6 @@ public class PacManMazeGUILogic extends Application{
 				System.exit(0);
 			}
 			
-			
 			if (avatar.checkAndMove(input, wallList)) {
 				avatarRectangle.setX(avatar.getX() * rectangleScale);
 				avatarRectangle.setY(avatar.getY() * rectangleScale);
@@ -109,25 +103,19 @@ public class PacManMazeGUILogic extends Application{
 				}
 				// check if player and ghost collide
 				ghost1.overlapsWith(avatar);
-				// check if player iverlaps with end point 
+				// check if player reaches endpoint
 				gameWin.isAtEndPoint(avatar);
+				
+
 			}
 			// make the ghost move
-			ghost1.move(ghost1.pickMove(this.wallList));
+			ghost1.move(ghost1.pickMove(this.wallList, this.avatar));
 			ghostRectangle.setX(ghost1.getX() * rectangleScale);
 			ghostRectangle.setY(ghost1.getY() * rectangleScale);
 			// check again if player and ghost collides
 			ghost1.overlapsWith(avatar);
-			// checks again to see if player reaches end point
-			gameWinRectangle.setX(gameWin.getX() * rectangleScale);
-			gameWinRectangle.setY(gameWin.getY() * rectangleScale);
-			gameWin.isAtEndPoint(avatar);
-
 
 		});
-	
-		
-		
 	}
 	
 
@@ -164,14 +152,16 @@ public class PacManMazeGUILogic extends Application{
 		layout.getChildren().add(ghostRectangle);
 	}
 	
+	
 	public void createGameWin() {
 		this.gameWin = new GameWin();
-		this.gameWinRectangle = new Rectangle(gameWin.getY() * rectangleScale, gameWin.getX() * rectangleScale, rectangleScale, rectangleScale);	
-		gameWinRectangle.setFill(Color.WHITE);
+		this.gameWinRectangle = new Rectangle(gameWin.getY() * rectangleScale, gameWin.getX() * rectangleScale, rectangleScale, rectangleScale);
+		gameWinRectangle.setFill(Color.RED);
 		layout.getChildren().add(gameWinRectangle);
-	}
+		gameWinRectangle.setX(gameWin.getX() * rectangleScale);
+		gameWinRectangle.setY(gameWin.getY() * rectangleScale);
 
-	
+	}
 
 
 
