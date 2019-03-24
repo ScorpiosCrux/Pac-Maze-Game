@@ -10,8 +10,9 @@ public class Ghost {
 
 
 	// constructors
-	public Ghost() {
-		this.location = new Point(13, 14);
+	public Ghost(int[][] wallList) {
+		this.setSpawnLocation(wallList);
+		
 		previousMove = " ";
 	
 	}
@@ -183,9 +184,26 @@ public class Ghost {
                 return collision;
         }
 
+	
+	// will set the initial location to a random, valid location
+	public void setSpawnLocation(int[][] wallList) {
+		ArrayList<Point> possibleSpawnLocations = new ArrayList<Point>();		
+		
+		for (int y = 10; y < wallList.length; y++) {
+			for (int x = 0; x < wallList[y].length; x++) {
+				if (wallList[y][x] != 1) {
+					possibleSpawnLocations.add(new Point(x, y));
+				}
+			}
+		}
+
+		// now we will choose a random spawn location from possibleSpawnLocations
+		Random r = new Random();
+                int randomIndex = r.nextInt(possibleSpawnLocations.size());
+                this.location = possibleSpawnLocations.get(randomIndex);
 
 
-
+	}
 
 
 
