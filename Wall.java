@@ -81,6 +81,10 @@ public class Wall {
 		this.walls = new int[rows][columns];
 		this.generateBorder(rows, columns);
 	}
+	
+	public Wall() {
+		this.walls = this.level1;
+	}
 
 
 	/**

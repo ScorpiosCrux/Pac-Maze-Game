@@ -31,6 +31,8 @@ public class PacManMazeTextLogic {
 	pellet = new Pellet(this.wallList);	
 	
 	
+	
+	
 	displayWallsAndPellets();
 	
 	gameLoop();
