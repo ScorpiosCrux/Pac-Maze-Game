@@ -32,12 +32,12 @@ public class PacManMazeGUILogic extends Application{
 	private final int rectangleScale = 20;
 	
 	
-	private Avatar avatar;
+	private Player avatar;
 	private Ghost ghost1;
 	private Ghost ghost2;
 	private Ghost ghost3;
 	private Ghost ghost4;
-	private Wall wall;
+	private GameBoard wall;
 	private Pellet pellet;
 	private GameWin gameWin;
 
@@ -49,6 +49,7 @@ public class PacManMazeGUILogic extends Application{
 	private Rectangle ghost3Rectangle;
 	private Rectangle ghost4Rectangle;
 	private Rectangle gameWinRectangle;
+	private Label scoreCounterlbl;
 	
 	private Pane layout;
 
@@ -57,13 +58,11 @@ public class PacManMazeGUILogic extends Application{
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		int gameWidth = 32;
-		int gameHeight = 32;
 
 		// initialize all the variables and create helper variables
 
 
-		wall = new Wall(gameWidth, gameHeight);
+		wall = new GameBoard(2);
 		wallList = wall.getWalls();
 		pellet = new Pellet(this.wallList);	
 		pelletCircleList = new Circle[wallList.length][wallList[0].length];
@@ -82,7 +81,7 @@ public class PacManMazeGUILogic extends Application{
 				
 		
 		
-		Label scoreCounterlbl = new Label("Score: " + avatar.getScore());
+		scoreCounterlbl = new Label("Score: " + avatar.getScore());
 		scoreCounterlbl.setTextFill(Color.WHITE);
 		scoreCounterlbl.setLayoutX(avatar.getX());
 		scoreCounterlbl.setLayoutY(avatar.getY());
@@ -99,23 +98,28 @@ public class PacManMazeGUILogic extends Application{
 		
 		// handle keyboard input
 		scene.setOnKeyPressed(event -> {
-			// get the key entered
-			char input = event.getText().charAt(0);
 			
 			if (event.getCode() == KeyCode.ESCAPE) {
 				System.exit(0);
 			}
 			
-			if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
-				avatar.addScore(10);
-				wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
+			// get the key entered
+			char input = event.getText().charAt(0);
+			
+			System.out.println(avatar.getLocation());
+		
+			
+			wallList = avatar.checkAndMove(input, wallList);
+			//if (avatar.checkPellet(wallList, (int)avatar.getY(), (int)avatar.getX())) {
 				layout.getChildren().remove(pelletCircleList[(int) avatar.getY()][(int) avatar.getX()]);
 				scoreCounterlbl.setText("Score: " + avatar.getScore());
-			}
+			//}
 			
-			if (avatar.checkAndMove(input, wallList)) {
+				//moves player
 				avatarCircle.setCenterX((avatar.getX() * rectangleScale) + (rectangleScale/2));
 				avatarCircle.setCenterY((avatar.getY() * rectangleScale) + (rectangleScale/2));
+				
+				//checkPellet();
 				
 				// check if player and ghost collide
 				ghost1.overlapsWith(avatar);
@@ -125,7 +129,7 @@ public class PacManMazeGUILogic extends Application{
 				// check if player reaches endpoint
 				gameWin.isAtEndPoint(avatar);	
 
-			}
+			displayGameBoard();
 			
 		});
 
@@ -172,6 +176,7 @@ public class PacManMazeGUILogic extends Application{
 	}
 	
 
+	
 	public void displayWallsAndPellets() {
 		// turn wall points into rectangle and add them to pane
 		int scale = rectangleScale;
@@ -193,7 +198,7 @@ public class PacManMazeGUILogic extends Application{
 	
 	public void createAvatar() {
 		int scale = rectangleScale;
-		this.avatar = new Avatar();
+		this.avatar = new Player();
 		this.avatarCircle = new Circle(avatar.getX()*scale + scale/2, avatar.getY()*scale + scale/2, scale/2, Color.GOLD);
 		layout.getChildren().add(avatarCircle);
 	}
@@ -226,7 +231,30 @@ public class PacManMazeGUILogic extends Application{
                 layout.getChildren().add(ghost4Rectangle);
         }
 
-
+	
+	
+	public void displayGameBoard() {
+		// turn wall points into rectangle and add them to pane
+		Circle currentCircle = null;
+		
+		for (int row = 0; row < wallList.length; row++) {
+			for (int column = 0; column < wallList[0].length; column++ ) {
+				if (wallList[row][column] == 1)
+					System.out.print(" #");
+				else if (wallList[row][column] == 2) {
+					System.out.print(" .");
+				}
+				else if (wallList[row][column] == 3) {
+					System.out.print(" C");
+				}
+				else {
+					System.out.print("  ");
+				}
+			}
+			System.out.print("\n");
+		}
+		System.out.print("\n");
+	}
 
 	
 	

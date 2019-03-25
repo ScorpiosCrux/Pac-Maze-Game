@@ -5,13 +5,13 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class Wall {
+public class GameBoard {
 
 	// instance variables
-	private int[][] walls;
+	private int[][] gameBoard;
 	private int[][] level1 ={{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 							 {1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1},
-							 {1,0,1,1,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,0,1,1},
+							 {1,0,1,1,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,5,1,1},
 							 {1,0,1,1,0,0,0,0,1,0,1,0,1,1,1,1,1,0,0,1,0,0,0,1,0,1,0,1,1,1,1,1},
 							 {1,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,0,1,1,0,0,1,0,1,0,1,0,1,1,1,1,1},
 							 {1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,0,0,1,1,0,1,0,1,0,1,1,1,1,1},
@@ -75,15 +75,11 @@ public class Wall {
 							 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
 
 
-
-	// constructor
-	public Wall(int rows, int columns) {
-		this.walls = new int[rows][columns];
-		this.generateBorder(rows, columns);
-	}
-	
-	public Wall() {
-		this.walls = this.level1;
+	public GameBoard(int levelNumber) {
+		if (levelNumber == 1)
+			this.gameBoard = this.level1;
+		else if(levelNumber == 2)
+			this.gameBoard = this.level2;
 	}
 
 
@@ -97,18 +93,23 @@ public class Wall {
 		for (int row = 0; row < rows; row++) {
 			for (int column = 0; column < columns; column++ ) {
 				if (((row == 0) || (row == rows-1)) || ((column == 0) || (column == columns-1))) {
-					walls[row][column] = 1;
-				}
+					this.gameBoard[row][column] = 1;
+	}}}}
+	
+
+	
+	public void generatePellet() {
+		for (int row = 0; row < this.gameBoard.length; row++) {
+			for (int column = 0; column < this.gameBoard[0].length; column++ ) {
+				if (this.gameBoard[row][column] == 0)
+					this.gameBoard[row][column] = 2;
 			}
 		}
 	}
 	
-	/**
-	 * Getter for the point's location
-	 * @return Arraylist of type Point
-	 */
-	public int[][] getWalls() {
-		return this.level1;
+	
+	public int[][] getCompleteGameBoard() {
+		return this.gameBoard;
 	}
 
 

@@ -27,7 +27,7 @@ public class Pellet {
 	 * @param avatar the Avatar object whose location will be checked for overlapping
 	 * @return a boolean that states whether there is overlapping or not
 	 */
-	public boolean overlapsWith(Avatar avatar) {
+	public boolean overlapsWith(Player avatar) {
 		for (Point eachPoint : location) {
 			if (eachPoint.equals(avatar.getLocation())) {
 				return true;
@@ -63,14 +63,7 @@ public class Pellet {
 	}
 
 
-	/**
-	 * Getter for the ArrayList of points
-	 * @return this.location which is an ArrayList of type Point
-	 */
 
-	public ArrayList<Point> getLocation() {
-		return this.location;
-	} 
 
 
 

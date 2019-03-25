@@ -31,7 +31,7 @@ public class Ghost {
 	
 
 	// returns direction of where to move
-	public String pickMove(int[][] wallList, Avatar avatar) {
+	public String pickMove(int[][] wallList, Player avatar) {
 		
 		/////// first, chase the avatar if it is in the ghost's line of sight	//////	
 		
@@ -158,21 +158,21 @@ public class Ghost {
 			this.previousMove = "s";	
 		}
 		if (direction == "s") {
-                        location.translate(0, 1);
-                        this.previousMove = "w";
-                }
+            location.translate(0, 1);
+            this.previousMove = "w";
+        }
 		if (direction == "a") {
-                        location.translate(-1, 0);
-                        this.previousMove = "d";
-                }
+            location.translate(-1, 0);
+            this.previousMove = "d";
+        }
 		if (direction == "d") {
-                        location.translate(1, 0);
-                        this.previousMove = "a";
-                }
+            location.translate(1, 0);
+            this.previousMove = "a";
+        }
 	}
 
 
-	public boolean overlapsWith(Avatar player) {
+	public boolean overlapsWith(Player player) {
                 boolean collision = false;
 
                 if (location.getX() == player.getX() && location.getY() == player.getY()) {

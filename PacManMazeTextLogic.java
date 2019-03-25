@@ -13,23 +13,17 @@ public class PacManMazeTextLogic {
 
 	//Instance Variables
 
-	private Avatar avatar;
-	private Ghost ghost1;
-	private Ghost ghost2;
-	private Ghost ghost3;
-	private Ghost ghost4;
-	private Wall wall;
-	private Pellet pellet;
-	private GameWin gameWin;
-
+	private Player avatar;
+	private GameBoard gameBoardGenerator;
+	private int gameLevelNumber = 1;
 	private int[][] wallList;
 	
 	public PacManMazeTextLogic() {
 
-	this.avatar = new Avatar();
-	wall = new Wall();
-	wallList = wall.getWalls();
-	pellet = new Pellet(this.wallList);	
+	this.avatar = new Player();
+	this.gameBoardGenerator = new GameBoard(gameLevelNumber);  
+	this.wallList = gameBoardGenerator.getCompleteGameBoard();
+	wallList[1][1] = 3;
 	
 	
 	
@@ -49,27 +43,12 @@ public class PacManMazeTextLogic {
 			
 		
 		while (input != 'e') {
-			System.out.println(input);
-			System.out.println(avatar.getLocation());
-			if (avatar.checkAndMove(input, wallList)) {
-				if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
-					avatar.addScore(10);
-					wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
-					
-				}
-				
-//				// check if player and ghost collide
-//				ghost1.overlapsWith(avatar);
-//				ghost2.overlapsWith(avatar);
-//				ghost3.overlapsWith(avatar);
-//				ghost4.overlapsWith(avatar);
-//				// check if player reaches endpoint
-//				gameWin.isAtEndPoint(avatar);	
-	
-			}
+			wallList = avatar.checkAndMove(input, wallList);
+			
 			
 			
 			displayGameBoard();
+			System.out.println("Current Score: " + avatar.getScore());
 			input = promptUserInput();
 		}
 	}
@@ -92,11 +71,11 @@ public class PacManMazeTextLogic {
 				else if (wallList[row][column] == 2) {
 					System.out.print(" .");
 				}
+				else if (wallList[row][column] == 0){
+					System.out.print("  ");
+				}
 				else if (wallList[row][column] == 3) {
 					System.out.print(" C");
-				}
-				else {
-					System.out.print("  ");
 				}
 			}
 			System.out.print("\n");
@@ -109,6 +88,8 @@ public class PacManMazeTextLogic {
 		PacManMazeTextLogic textLogic = new PacManMazeTextLogic();
 		
 	}
+	
+	
 
 
 	

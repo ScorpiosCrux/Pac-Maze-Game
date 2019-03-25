@@ -13,7 +13,7 @@ public class GameWin {
 		winLocation = new Point(endPoint);
 	}
 
-	public boolean isAtEndPoint(Avatar player) {
+	public boolean isAtEndPoint(Player player) {
 		boolean win = false;
 		
 		if (winLocation.getX() == player.getX() && winLocation.getY() == player.getY()) {
