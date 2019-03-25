@@ -4,80 +4,105 @@
 
 import java.util.Scanner;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+
 public class PacManMazeTextLogic {
 
 	//Instance Variables
+
 	private Avatar avatar;
-	private Pellet pellet;
+	private Ghost ghost1;
+	private Ghost ghost2;
+	private Ghost ghost3;
+	private Ghost ghost4;
 	private Wall wall;
-	private int[][] gameBoard;
+	private Pellet pellet;
+	private GameWin gameWin;
 
-	private static final int HEIGHT = 50;
-	private static final int WIDTH = 50;
+	private int[][] wallList;
+	
+	public PacManMazeTextLogic() {
 
-	/**
-	 * Creates new objects of type Avatar, Pellet and Wall for the avatar, pellet, and wall variables
-	 * Prompts the user for the dimensions of the level, then uses that to generate the walls and pellets
-	 * Notifies the user about the controls
-	 * Prints out the initial location and point of the avatar
-	 */
-	public void initialize() {
-		this.avatar = new Avatar();
-		this.wall = new Wall(HEIGHT, WIDTH);
-		this.gameBoard = wall.getWalls();
-		this.pellet = new Pellet(wall.getWalls());
-		this.gameBoard = pellet.generatePellet(gameBoard);
+	wall = new Wall();
+	wallList = wall.getWalls();
+	pellet = new Pellet(this.wallList);	
+	
+	
+	displayWallsAndPellets();
+	
+	gameLoop();
 
-		// notifies the user about the controls
-		System.out.println("\nGame controls:");
-		System.out.println("w --> move up, s --> move down, a --> move left, d --> move right");
-		System.out.println("e --> exit the game");
-		
-		// display the initial score and location
-		System.out.println("\nAvatar location: " + avatar.getLocation().getX() + "," + avatar.getLocation().getY());
-                System.out.println("Points: " + avatar.getScore());
+	
+	
 	}
+	
+	private void gameLoop() {
+		String input = promptUserInput();
+		System.out.println(input);
+			
+			
+		
+		if (input == "e") {
+			System.out.println("boop");
+			System.exit(0);
+		}else if (avatar.checkAndMove(input, wallList)) {
+			if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
+				avatar.addScore(10);
+				wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
+				
+			}
+			
+			// check if player and ghost collide
+			ghost1.overlapsWith(avatar);
+			ghost2.overlapsWith(avatar);
+			ghost3.overlapsWith(avatar);
+			ghost4.overlapsWith(avatar);
+			// check if player reaches endpoint
+			gameWin.isAtEndPoint(avatar);	
 
-	/** 
-	 * Takes user input and avatar is moved to specified location. 
-	 * If there is wall in new location, the move is reversed.
-	 */
-	public void getInputAndMove() {
-		System.out.println("Where to move?");
-		Scanner keyboard = new Scanner(System.in);
-		String input = keyboard.nextLine();
-		
-		
-		Avatar testAvatar = new Avatar(avatar.getLocation());
-		testAvatar.checkAndMove(input, gameBoard);
-		
-		
-		
-	}
-
-	/**
-	 * Checks if the avatar location overlaps with a pellet location, then updates point and gets rid of that pellet
-	 */
-	public void updateScore() {
-		if (pellet.overlapsWith(avatar)) {
-			avatar.addScore(1);
-			pellet.removePellet(avatar.getLocation());
-			System.out.println("collected pellet");
 		}
 	}
+	
+	public String promptUserInput() {
+		System.out.println("Where to move?");
+		Scanner keyboard = new Scanner(System.in);
+		return keyboard.nextLine();
+	}
+	
+	
+	public void displayWallsAndPellets() {
+		// turn wall points into rectangle and add them to pane
+		Circle currentCircle = null;
+		
+		for (int row = 0; row < wallList.length; row++) {
+			for (int column = 0; column < wallList[0].length; column++ ) {
+				if (wallList[row][column] == 1)
+					System.out.print(" #");
+				else if (wallList[row][column] == 2) {
+					System.out.print(" .");
+				}
+				else {
+					System.out.print("  ");
+				}
+			}
+			System.out.print("\n");
+		}
+		System.out.print("\n");
+	}
+	
 
-	/** 
-	 * Displays the avatar location and score.
-	 */ 
-	public void printCurrentState() {
-		//getX() and getY() are methods from the Point class
-		System.out.println("Avatar location: " + avatar.getLocation().getX() + "," + avatar.getLocation().getY());
-		System.out.println("Points: " + avatar.getScore());
+	public static void main(String[] argsv) {
+		PacManMazeTextLogic textLogic = new PacManMazeTextLogic();
+		textLogic.displayWallsAndPellets();
+		
 	}
 
 
-
-
+	
+	
 
 
 }
