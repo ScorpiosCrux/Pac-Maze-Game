@@ -100,21 +100,23 @@ public class PacManMazeGUILogic extends Application{
 		// handle keyboard input
 		scene.setOnKeyPressed(event -> {
 			// get the key entered
-			String input = event.getText();
+			char input = event.getText().charAt(0);
 			
 			if (event.getCode() == KeyCode.ESCAPE) {
 				System.exit(0);
 			}
 			
+			if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
+				avatar.addScore(10);
+				wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
+				layout.getChildren().remove(pelletCircleList[(int) avatar.getY()][(int) avatar.getX()]);
+				scoreCounterlbl.setText("Score: " + avatar.getScore());
+			}
+			
 			if (avatar.checkAndMove(input, wallList)) {
 				avatarCircle.setCenterX((avatar.getX() * rectangleScale) + (rectangleScale/2));
 				avatarCircle.setCenterY((avatar.getY() * rectangleScale) + (rectangleScale/2));
-				if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
-					avatar.addScore(10);
-					wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
-					layout.getChildren().remove(pelletCircleList[(int) avatar.getY()][(int) avatar.getX()]);
-					scoreCounterlbl.setText("Score: " + avatar.getScore());
-				}
+				
 				// check if player and ghost collide
 				ghost1.overlapsWith(avatar);
 				ghost2.overlapsWith(avatar);

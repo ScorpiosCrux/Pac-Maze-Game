@@ -30,26 +30,34 @@ public class Avatar {
 	}
 
 	
-	public boolean checkAndMove(String direction, int[][] wallList) {
+	public boolean checkAndMove(char direction, int[][] wallList) {
 		boolean nextMoveValid = false;
 		// move up
-		if (direction.equalsIgnoreCase("w") && (wallList[location.y - 1][location.x] != 1) ) {
+		if (direction == 'w' && (wallList[location.y - 1][location.x] != 1) ) {
+			wallList[location.y][location.x] = 0;
+			wallList[location.y - 1][location.x] = 3;
 			nextMoveValid = true;
 			location.translate(0, -1);
 		}
 		// move down
 		
-		else if (direction.equalsIgnoreCase("s")  && (wallList[location.y + 1][location.x] != 1)) {
+		else if (direction == 's'  && (wallList[location.y + 1][location.x] != 1)) {
+			wallList[location.y][location.x] = 0;
+			wallList[location.y + 1][location.x] = 3;
 			nextMoveValid = true;
 			location.translate(0, 1);
 		}
 		// move left
-		else if (direction.equalsIgnoreCase("a") && (wallList[location.y][location.x - 1] != 1)) {
+		else if (direction == 'a' && (wallList[location.y][location.x - 1] != 1)) {
+			wallList[location.y][location.x] = 0;
+			wallList[location.y][location.x - 1] = 3;
 			nextMoveValid = true;
 			location.translate(-1, 0);
 		}
 		// move right
-		else if (direction.equalsIgnoreCase("d") && (wallList[location.y][location.x + 1] != 1)) {
+		else if (direction == 'd' && (wallList[location.y][location.x + 1] != 1)) {
+			wallList[location.y][location.x] = 0;
+			wallList[location.y][location.x + 1] = 3;
 			nextMoveValid = true;
 			location.translate(1, 0);
 		}

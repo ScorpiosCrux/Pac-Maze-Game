@@ -26,6 +26,7 @@ public class PacManMazeTextLogic {
 	
 	public PacManMazeTextLogic() {
 
+	this.avatar = new Avatar();
 	wall = new Wall();
 	wallList = wall.getWalls();
 	pellet = new Pellet(this.wallList);	
@@ -33,7 +34,7 @@ public class PacManMazeTextLogic {
 	
 	
 	
-	displayWallsAndPellets();
+	displayGameBoard();
 	
 	gameLoop();
 
@@ -42,40 +43,45 @@ public class PacManMazeTextLogic {
 	}
 	
 	private void gameLoop() {
-		String input = promptUserInput();
+		char input = promptUserInput();
 		System.out.println(input);
 			
 			
 		
-		if (input == "e") {
-			System.out.println("boop");
-			System.exit(0);
-		}else if (avatar.checkAndMove(input, wallList)) {
-			if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
-				avatar.addScore(10);
-				wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
+		while (input != 'e') {
+			System.out.println(input);
+			System.out.println(avatar.getLocation());
+			if (avatar.checkAndMove(input, wallList)) {
+				if (wallList[(int) avatar.getY()][(int) avatar.getX()] == 2) {
+					avatar.addScore(10);
+					wallList[(int) avatar.getY()][(int) avatar.getX()] = 0;
+					
+				}
 				
+//				// check if player and ghost collide
+//				ghost1.overlapsWith(avatar);
+//				ghost2.overlapsWith(avatar);
+//				ghost3.overlapsWith(avatar);
+//				ghost4.overlapsWith(avatar);
+//				// check if player reaches endpoint
+//				gameWin.isAtEndPoint(avatar);	
+	
 			}
 			
-			// check if player and ghost collide
-			ghost1.overlapsWith(avatar);
-			ghost2.overlapsWith(avatar);
-			ghost3.overlapsWith(avatar);
-			ghost4.overlapsWith(avatar);
-			// check if player reaches endpoint
-			gameWin.isAtEndPoint(avatar);	
-
+			
+			displayGameBoard();
+			input = promptUserInput();
 		}
 	}
 	
-	public String promptUserInput() {
+	public char promptUserInput() {
 		System.out.println("Where to move?");
 		Scanner keyboard = new Scanner(System.in);
-		return keyboard.nextLine();
+		return keyboard.next().charAt(0);
 	}
 	
 	
-	public void displayWallsAndPellets() {
+	public void displayGameBoard() {
 		// turn wall points into rectangle and add them to pane
 		Circle currentCircle = null;
 		
@@ -85,6 +91,9 @@ public class PacManMazeTextLogic {
 					System.out.print(" #");
 				else if (wallList[row][column] == 2) {
 					System.out.print(" .");
+				}
+				else if (wallList[row][column] == 3) {
+					System.out.print(" C");
 				}
 				else {
 					System.out.print("  ");
@@ -98,7 +107,6 @@ public class PacManMazeTextLogic {
 
 	public static void main(String[] argsv) {
 		PacManMazeTextLogic textLogic = new PacManMazeTextLogic();
-		textLogic.displayWallsAndPellets();
 		
 	}
 
