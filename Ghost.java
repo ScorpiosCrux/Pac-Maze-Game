@@ -10,8 +10,9 @@ public class Ghost {
 
 
 	// constructors
-	public Ghost() {
-		this.location = new Point(13, 14);
+	public Ghost(int[][] wallList) {
+		this.setSpawnLocation(wallList);
+		
 		previousMove = " ";
 	
 	}
@@ -30,7 +31,87 @@ public class Ghost {
 	
 
 	// returns direction of where to move
-	public String pickMove(int[][] wallList) {
+	public String pickMove(int[][] wallList, Avatar avatar) {
+		
+		/////// first, chase the avatar if it is in the ghost's line of sight	//////	
+		
+		int avatarX = (int) avatar.getX();
+		int avatarY = (int) avatar.getY();
+
+		int ghostX = location.x;
+		int ghostY = location.y;
+	
+		// check if avatar is directly to the left of the ghost which no walls in between
+		// if that is true, then return "a" 
+		
+		if ( (avatarY == ghostY) && (avatarX < ghostX) ) {
+			// check if there are no walls between avatar and ghost
+			boolean noWalls = true;
+			for (int i = avatarX; i < ghostX; i++) {
+				if (wallList[avatarY][i] == 1) {
+					noWalls = false;
+				}
+			}
+			if (noWalls == true) {
+				return "a";
+			}
+		}
+
+		
+		// check if avatar is directly to the right of the ghost with no walls in between
+		// if that is true, then return "d"
+		if ( (avatarY == ghostY) && (avatarX > ghostX) ) {
+			//check if there are no walls in between
+			boolean noWalls = true;
+			for (int i = ghostX; i < avatarX; i++) {
+				if (wallList[avatarY][i] == 1) {
+					noWalls = false;
+				}
+			}
+			if (noWalls == true) {
+				return "d";
+			}
+		}		
+	
+			
+		// check if avatar is directly on top of the ghost with no walls in between
+		// if that is true, return "w"
+
+		if ( (avatarX == ghostX) && (avatarY < ghostY) ) {
+			// check if there are no walls in between
+			boolean noWalls = true;
+			for (int i = avatarY; i < ghostY; i++) {
+				if (wallList[i][avatarX] == 1) {
+					noWalls = false;
+				}
+			}
+			if (noWalls == true) {
+				return "w";
+			}
+		}
+
+
+		// check if avatar is directly below the ghost with no walls in between
+		// if that is true, return "d"
+
+		if ( (avatarX == ghostX) && (avatarY > ghostY) ) {
+			// check if there are no walls in between 
+			boolean noWalls = true;
+			for (int i = ghostY; i < ghostX; i++) {
+				if (wallList[i][avatarX] == 1) {
+					noWalls = false;
+				}
+			}
+			if (noWalls == true) {
+				return "s";
+			}
+		
+		}
+
+
+
+		////// if avatar is not in line of sight, then pick random move //////
+
 		// first clreate a list that contains all potential moves
 		ArrayList<String> potentialMoves = new ArrayList<String>();
 		potentialMoves.add("w");
@@ -103,9 +184,26 @@ public class Ghost {
                 return collision;
         }
 
+	
+	// will set the initial location to a random, valid location
+	public void setSpawnLocation(int[][] wallList) {
+		ArrayList<Point> possibleSpawnLocations = new ArrayList<Point>();		
+		
+		for (int y = 10; y < wallList.length; y++) {
+			for (int x = 0; x < wallList[y].length; x++) {
+				if (wallList[y][x] != 1) {
+					possibleSpawnLocations.add(new Point(x, y));
+				}
+			}
+		}
+
+		// now we will choose a random spawn location from possibleSpawnLocations
+		Random r = new Random();
+                int randomIndex = r.nextInt(possibleSpawnLocations.size());
+                this.location = possibleSpawnLocations.get(randomIndex);
 
 
-
+	}
 
 
 

@@ -6,7 +6,7 @@ public class GameWin {
 
 
 	public GameWin() {
-		winLocation = new Point(29, 2);
+		winLocation = new Point(30, 2);
 	}
 
 	public GameWin(Point endPoint) {

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class StartScreen extends Application{
 	public static void main(String[] args) {
-		launch(args);
+	launch(args);
 	}
 	
 	@Override
@@ -35,60 +35,33 @@ public class StartScreen extends Application{
 		Label label = new Label("PACMAZE");
 
 		Button button = new Button("Start Game");
-		button.setOnAction( new EventHandler<ActionEvent>() {	
-		@Override
-			public void handle(ActionEvent event) {
-				Stage menuStage = new Stage();
-				PacManMazeGUILogic menu = new PacManMazeGUILogic();
-				menu.start(menuStage);
-				menuStage.show();
-				primaryStage.close();
-			
-
-			
-			}
-
-		
-		}
-		);
-
-
-
-		Button button2 = new Button("Instructions");
-
-		button2.setOnAction( new EventHandler<ActionEvent>() {	
-		@Override
-			public void handle(ActionEvent event) {
-				Stage menuStage = new Stage();
-				InstructionsScreen menu = new InstructionsScreen();
-				menu.start(menuStage);
-				menuStage.show();
-			}
-
-		}
-		);
-
-
 
 		root.setAlignment(Pos.CENTER);
-		root.getChildren().addAll(label, button, button2);
+		root.getChildren().addAll(label, button);
 
 		Scene scene = new Scene(root, 350, 350);
 
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+		button.setOnAction( new EventHandler<ActionEvent>() {	
+		@Override
+		public void handle(ActionEvent event) {
+			Stage menuStage = new Stage();
+			PacManMazeGUILogic menu = new PacManMazeGUILogic();
+			menu.start(menuStage);
+			menuStage.show();
+			primaryStage.close();
 			
-	
+
+			
+		}
+	}
+	);	
 	}
 }
 	
-
-
-
-
-
-
 
 
 
