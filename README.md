@@ -14,13 +14,13 @@
 	i) to view controls/goals click instructions
 	ii) once you feel comfortable close the instructions window and click start
 
-8) Our class Avatar has JUnit Tests and the Junit tests are in our GitHub Repo under the folder JUnit Test
+8) Our class PacManMazeTextLogic has JUnit Tests and the Junit tests are in our GitHub Repo under the folder JUnit Test
 
 	i) Download and unzip both the JUnit Test File and Final Project	
 	ii) Create a duplicate of the Final Project and copy all the contents of the JUnit Test file into the duplicate file
 	iii) In the terminal, navigate to the directory of the duplicate file
 	iv) Compile everything (includes the junit tests) using javac -cp .:junit-4.12.jar:hamcrest-core-1.3.jar *.java
-	v) The file with the tests is called AvatarTest.java
-	vi) To run the tests enter command java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore AvatarTest
+	v) The file with the tests is called JUnitTest.java
+	vi) To run the tests enter command java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore JUnitTest
 	
 	There is also a test document provided in the JUnit Tests file that describes how each method tests the Avatar class
