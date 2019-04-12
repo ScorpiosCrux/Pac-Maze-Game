@@ -1,6 +1,6 @@
 # TUT07---G3
 
-1) The code for out final submission is in our GitHub Repo under the folder Project Final. 
+1) The code for out final submission is in our GitHub Repo under the folder Project Final 
 2) Download the folder Project Final 
 3) open the zipFile
 4) In your terminal do
@@ -15,6 +15,8 @@
 	i) to view controls/goals click instructions
 	
 	ii) once you feel comfortable close the instructions window and click start
+	
+	iii) In order to show what happens when the game is won, there is a shortcut provided to the end of the maze
 
 8) Our class PacManMazeTextLogic has JUnit Tests and the Junit tests are in our GitHub Repo under the folder JUnit Test
 
